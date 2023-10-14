@@ -1,9 +1,10 @@
 const Movies = require("../model/movies");
+const MoviesService = require('../services/moviesService')
 
 class MoviesController {
   static index = async (req, res, next) => {
     try {
-      const data = await Movies.getMovies(next);
+      const data = await MoviesService.getallMovies(next);
       res.status(200).json(data);
     } catch (err) {
       next(err);
@@ -14,7 +15,12 @@ class MoviesController {
     const id = req.params.id;
     try {
       const data = await Movies.getMoviesbyId(id, next);
-      res.status(200).json(data);
+
+      if (!data) {
+        next({ name: "Not found" });
+      } else {
+        res.status(200).json(data);
+      }
     } catch (err) {
       next(err);
     }
@@ -25,7 +31,7 @@ class MoviesController {
     console.log(moviesData);
     try {
       const data = await Movies.createMovies(moviesData, next);
-      res.status(201).json({message: 'Movie created'} ,data);
+      res.status(201).json({ message: "Movie created" }, data);
       console.log("Created movie:", moviesData);
     } catch (err) {
       next(err);
@@ -36,23 +42,23 @@ class MoviesController {
     const moviesData = req.body;
     try {
       const data = await Movies.updateMovies(moviesData, next);
-      res.status(200).json({message: 'Movie updated'}, data);
-      console.log("Movie updated")
+      res.status(200).json({ message: "Movie updated" }, data);
+      console.log("Movie updated");
     } catch (err) {
       next(err);
     }
   };
 
-    static delete = async (req, res, next) => {
-      const id = req.params.id
-        try {
-            const data = await Movies.deleteMovies(id, next)
-            res.status(200).json({message: 'Movie deleted'})
-            console.log('Movies deleted')
-      } catch (err) {
-        next(err)
-      }
+  static delete = async (req, res, next) => {
+    const id = req.params.id;
+    try {
+      const data = await Movies.deleteMovies(id, next);
+      res.status(200).json({ message: "Movie deleted" });
+      console.log("Movies deleted");
+    } catch (err) {
+      next(err);
     }
+  };
 }
 
 module.exports = MoviesController;
