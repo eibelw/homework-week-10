@@ -36,7 +36,7 @@ class Movies {
 
     if (!id.toString().match(/^[0-9]{3}$/) || !title || !genres || !year.toString().match(/^[0-9]{4}$/)) {
       return next({
-        name: "paramsError",
+        name: "paramsmovieError",
       });
     }
 
@@ -54,7 +54,7 @@ class Movies {
 
     if (!id.toString().match(/^[0-9]{3}$/) || !title || !genres || !year.toString().match(/^[0-9]{4}$/)) {
       return next({
-        name: "paramsError",
+        name: "paramsmovieError",
       });
     }
 

@@ -17,7 +17,7 @@ class MoviesController {
       const data = await Movies.getMoviesbyId(id, next);
 
       if (!data) {
-        next({ name: "Not found" });
+        next({ name: "Movie not found" });
       } else {
         res.status(200).json(data);
       }
@@ -31,6 +31,7 @@ class MoviesController {
     console.log(moviesData);
     try {
       const data = await Movies.createMovies(moviesData, next);
+      
       res.status(201).json(data);
       console.log("Created movie:", moviesData);
     } catch (err) {
