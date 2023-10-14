@@ -31,7 +31,7 @@ class MoviesController {
     console.log(moviesData);
     try {
       const data = await Movies.createMovies(moviesData, next);
-      res.status(201).json({ message: "Movie created" }, data);
+      res.status(201).json(data);
       console.log("Created movie:", moviesData);
     } catch (err) {
       next(err);
@@ -42,7 +42,7 @@ class MoviesController {
     const moviesData = req.body;
     try {
       const data = await Movies.updateMovies(moviesData, next);
-      res.status(200).json({ message: "Movie updated" }, data);
+      res.status(200).json(data);
       console.log("Movie updated");
     } catch (err) {
       next(err);
